@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="topbar">
+    <div>
+      <div style="font-weight: 700; font-size: 16px;">
+        <a href="/topics/{{ topic_id }}/runs" style="color: inherit; text-decoration: none;">{{ topic_id }} / Runs</a>
+        <span class="muted">/</span>
+        <span>{{ run_filename }}</span>
+      </div>
+      <div class="muted" style="font-size: 13px;">Run record (read-only)</div>
+    </div>
+  </div>
+
+  {% set page = 'runs' %}
+  {% include "partials_topic_tabs.html" %}
+
+  <div class="panel">
+    <div class="md">{{ content_html | safe }}</div>
+  </div>
+{% endblock %}
+

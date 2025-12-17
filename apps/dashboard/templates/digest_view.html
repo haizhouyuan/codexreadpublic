@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="topbar">
+    <div>
+      <div style="font-weight: 700; font-size: 16px;">
+        <a href="/topics/{{ topic_id }}" style="color: inherit; text-decoration: none;">{{ topic_id }}</a>
+        <span class="muted">/ digest</span>
+      </div>
+      <div class="muted" style="font-size: 13px;">{{ digest_filename }}</div>
+    </div>
+    <div class="muted" style="font-size: 13px;">
+      <a href="/topics/{{ topic_id }}/digests">Back to list →</a>
+    </div>
+  </div>
+
+  {% set page = 'digests' %}
+  {% include "partials_topic_tabs.html" %}
+
+  <div class="panel">
+    <div class="meta">
+      {% if meta.title %}<div class="row"><strong style="color:var(--text);">Title:</strong> {{ meta.title }}</div>{% endif %}
+      <div class="row">
+        {% if meta.published_at %}<span class="pill">{{ meta.published_at }}</span>{% endif %}
+        {% if meta.source_type %}<span class="pill">{{ meta.source_type }}</span>{% endif %}
+        {% for tag in meta_tags[:12] %}<span class="pill">{{ tag }}</span>{% endfor %}
+        {% if meta_tags|length > 12 %}<span class="pill">+{{ meta_tags|length - 12 }}</span>{% endif %}
+      </div>
+      {% if meta.source_url %}
+        <div class="row"><strong style="color:var(--text);">source_url:</strong> <a href="{{ meta.source_url }}" target="_blank" rel="noreferrer">{{ meta.source_url }}</a></div>
+      {% endif %}
+      {% if meta.source_path %}
+        <div class="row"><strong style="color:var(--text);">source_path:</strong> <code>{{ meta.source_path }}</code></div>
+      {% endif %}
+      {% if meta_entities|length > 0 %}
+        <div class="row"><strong style="color:var(--text);">entities:</strong> {% for e in meta_entities[:18] %}<span class="pill">{{ e }}</span>{% endfor %}</div>
+      {% endif %}
+    </div>
+
+    <div class="md">{{ content_html | safe }}</div>
+  </div>
+{% endblock %}
+

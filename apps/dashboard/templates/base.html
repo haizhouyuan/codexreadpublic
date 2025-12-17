@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{{ title if title else "codexread dashboard" }}</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">
+          <a href="/" style="color: inherit; text-decoration: none;">codexread</a>
+          <div><small>Research Dashboard (read-only)</small></div>
+        </div>
+
+        <div class="muted" style="font-size: 13px; margin: 10px 0 6px;">Workflow</div>
+        <div class="topics">
+          <a href="/workflow">Monitor</a>
+        </div>
+
+        <div class="muted" style="font-size: 13px; margin: 10px 0 6px;">Topics</div>
+        <div class="topics">
+          {% for t in topics %}
+            <a href="/topics/{{ t }}" class="{% if topic_id == t %}active{% endif %}">{{ t }}</a>
+          {% endfor %}
+          {% if topics|length == 0 %}
+            <div class="muted">No topics found under <code>archives/topics</code>.</div>
+          {% endif %}
+        </div>
+
+        <div style="height: 14px;"></div>
+        <div class="muted" style="font-size: 13px; margin: 10px 0 6px;">Investing</div>
+        <div class="topics">
+          <a href="/investing/watchlist">Watchlist</a>
+          <a href="/investing/decisions">Decisions</a>
+        </div>
+
+        <div style="height: 14px;"></div>
+        <div class="muted" style="font-size: 12px;">Spec: <code>dashboard-web-spec.md</code></div>
+      </aside>
+
+      <main class="content">
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+.python-version
+
+# Local state / runtime / outputs (do not commit)
+state/
+logs/
+imports/
+exports/
+archives/
+
+# Session exports / AI history (do not commit)
+.specstory/
+codex-session-*.md
+
+# Local tooling (do not commit)
+codex/
+
+# Env files (credentials must never be committed)
+.env
+.env.*
+
+# Editors
+.vscode/
+.cursor/
+.idea/
+.DS_Store

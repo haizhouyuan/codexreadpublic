@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="topbar">
+    <div>
+      <div style="font-weight: 700; font-size: 16px;">
+        <a href="/investing/decisions" style="color: inherit; text-decoration: none;">Investing / Decisions</a>
+        <span class="muted">/</span>
+        <span>{{ decision_filename }}</span>
+      </div>
+      <div class="muted" style="font-size: 13px;">
+        {% if meta.get("ticker") %}<span class="pill"><code>{{ meta.get("ticker") }}</code></span>{% endif %}
+        {% if meta.get("status") %}<span class="pill {{ pill_class(meta.get("status")) }}">{{ meta.get("status") }}</span>{% endif %}
+        {% if meta.get("updated_at") %}<span class="pill">{{ meta.get("updated_at") }}</span>{% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 14px;"></div>
+
+  <div class="panel">
+    <div class="md">{{ content_html | safe }}</div>
+  </div>
+{% endblock %}
+

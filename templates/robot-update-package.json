@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "1970-01-01T00:00:00Z",
+  "review": {
+    "required": true,
+    "status": "pending",
+    "reviewed_by": null,
+    "reviewed_at": null,
+    "notes": ""
+  },
+  "target": {
+    "system": "child-bot",
+    "child_user_id": "CHILD_USER_ID",
+    "u1_user_id": "U1_USER_ID"
+  },
+  "inputs": [],
+  "u1_advice": [],
+  "proposed_actions": [],
+  "risks": [],
+  "open_questions": []
+}
+

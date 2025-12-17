@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="topbar">
+    <div>
+      <div style="font-weight: 700; font-size: 16px;">Research Dashboard</div>
+      <div class="muted" style="font-size: 13px;">Browse topic archives & digests (read-only)</div>
+    </div>
+    <div class="muted" style="font-size: 13px;">Port: <code>{{ request.url.port or "" }}</code></div>
+  </div>
+
+  <div style="height: 14px;"></div>
+
+  {% if statuses|length > 0 %}
+    <div class="panel">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <h2 style="margin: 0;">Workflow</h2>
+        <a class="muted" href="/workflow">View all →</a>
+      </div>
+      <div style="height: 10px;"></div>
+      <div class="md">
+        <table>
+          <thead>
+            <tr>
+              <th>Topic</th>
+              <th>Stage</th>
+              <th>State</th>
+              <th>Worker</th>
+              <th>Run</th>
+              <th>Record</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in statuses %}
+              <tr>
+                <td><a href="/topics/{{ s.topic_id }}">{{ s.topic_id }}</a></td>
+                <td>{{ s.stage if s.stage else "-" }}</td>
+                <td><span class="pill {{ pill_class(s.stage_state) }}">{{ s.stage_state if s.stage_state else "-" }}</span></td>
+                <td>{{ s.worker_id if s.worker_id is not none else "-" }}</td>
+                <td>{{ s.run_id if s.run_id else "-" }}</td>
+                <td>
+                  {% if s.record_filename %}
+                    <a href="/topics/{{ s.topic_id }}/runs/{{ s.record_filename }}">{{ s.record_filename }}</a>
+                  {% else %}
+                    -
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="height: 14px;"></div>
+  {% endif %}
+
+  <div class="panel">
+    <h2 style="margin-top: 0;">Topics</h2>
+    <div class="list">
+      {% for t in topics %}
+        <div class="item">
+          <h3><a href="/topics/{{ t }}">{{ t }}</a></h3>
+          <div class="sub">
+            <span class="pill">overview</span>
+            <span class="pill">framework</span>
+            <span class="pill">digests</span>
+            <span class="pill">tasks</span>
+          </div>
+        </div>
+      {% endfor %}
+      {% if topics|length == 0 %}
+        <div class="muted">No topics found.</div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

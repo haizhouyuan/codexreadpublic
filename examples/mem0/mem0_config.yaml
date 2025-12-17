@@ -1,0 +1,22 @@
+vector_store:
+  provider: qdrant
+  config:
+    host: localhost
+    port: 6333
+    # Change this to your own collection name if needed.
+    collection_name: homeagent_memories
+
+llm:
+  provider: openai
+  config:
+    model: gpt-4o-mini
+    api_key: ${MEM0_LLM_API_KEY}
+    openai_base_url: ${MEM0_LLM_BASE_URL}
+
+embedder:
+  provider: openai
+  config:
+    model: text-embedding-3-small
+    api_key: ${MEM0_LLM_API_KEY}
+    openai_base_url: ${MEM0_LLM_BASE_URL}
+

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="topbar">
+    <div>
+      <div style="font-weight: 700; font-size: 16px;">
+        <a href="/topics/{{ topic_id }}" style="color: inherit; text-decoration: none;">{{ topic_id }}</a>
+      </div>
+      <div class="muted" style="font-size: 13px;">Topic archive (read-only)</div>
+    </div>
+    <div class="muted" style="font-size: 13px;">
+      Quick digests: {{ digests|length }}
+    </div>
+  </div>
+
+  {% include "partials_topic_tabs.html" %}
+
+  <div class="panel">
+    <div class="md">{{ content_html | safe }}</div>
+  </div>
+
+  {% if digests|length > 0 %}
+    <div style="height: 14px;"></div>
+    <div class="panel">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <h3 style="margin:0;">Recent digests</h3>
+        <a class="muted" href="/topics/{{ topic_id }}/digests">View all →</a>
+      </div>
+      <div style="height:10px;"></div>
+      <div class="list">
+        {% for d in digests %}
+          <div class="item">
+            <h3 style="margin:0;">
+              <a href="/topics/{{ topic_id }}/digests/{{ d.filename }}">{{ d.title }}</a>
+            </h3>
+            <div class="sub" style="margin-top:8px;">
+              {% if d.published_at %}<span class="pill">{{ d.published_at }}</span>{% endif %}
+              {% if d.source_type %}<span class="pill">{{ d.source_type }}</span>{% endif %}
+              {% for tag in d.tags[:6] %}<span class="pill">{{ tag }}</span>{% endfor %}
+              {% if d.tags|length > 6 %}<span class="pill">+{{ d.tags|length - 6 }}</span>{% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
